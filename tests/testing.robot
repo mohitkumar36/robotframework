@@ -3,7 +3,7 @@ Library    Browser
 
 *** Test Cases ***
 Open Browser And Verify Title
-    New Browser    chromium    headless=False    args=["--start-maximized"]
+    New Browser    chromium    headless=True    args=["--start-maximized"]
     New Context    viewport=${None}
     New Page    https://www.google.com
     ${title}=    Get Title
