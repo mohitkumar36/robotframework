@@ -8,5 +8,5 @@ Open Browser And Verify Title
     New Page    https://www.google.com
     ${title}=    Get Title
     Should Be Equal    ${title}    Google
-    Sleep    10s
+    Sleep    5s
     Close Browser
