@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        
-        stage('Create Virtual Environment') {
+
+        stage('Setup Virtual Environment') {
             steps {
                 sh '''
                 python3 -m venv venv
-                . venv/bin/activate
+                venv/bin/python -m pip install --upgrade pip
                 '''
             }
         }
@@ -15,9 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                . venv/bin/activate
-                python3 -m pip install --upgrade pip --user
-                python3 -m pip install -r requirements.txt --user
+                venv/bin/pip install -r requirements.txt
                 '''
             }
         }
@@ -25,8 +23,8 @@ pipeline {
         stage('Run Robot Tests') {
             steps {
                 sh '''
-                . venv/bin/activate
-                robot -d output tests
+                rm -rf output
+                venv/bin/robot -d output tests/
                 '''
             }
         }
