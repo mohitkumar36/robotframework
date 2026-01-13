@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh '''
                 venv/bin/pip install -r requirements.txt
+                rfbrowser init
                 '''
             }
         }
