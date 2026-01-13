@@ -15,7 +15,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                source venv/bin/activate
+                . venv/bin/activate
                 python3 -m pip install --upgrade pip --user
                 python3 -m pip install -r requirements.txt --user
                 '''
@@ -25,7 +25,7 @@ pipeline {
         stage('Run Robot Tests') {
             steps {
                 sh '''
-                source venv/bin/activate
+                . venv/bin/activate
                 robot -d output tests
                 '''
             }
