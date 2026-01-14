@@ -30,6 +30,8 @@ pipeline {
                 else
                     echo "Playwright browsers already installed."
                 fi
+                
+                npx playwright install 
                 '''
             }
         }
