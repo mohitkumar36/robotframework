@@ -39,11 +39,14 @@ pipeline {
                 sh '''
                 rm -rf output
                 
-                if [ -z "${ROBOT_TAGS}" ]; then
-                    venv/bin/robot -variable BROWSER="${BROWSER}" -d output tests/
-                else
-                    venv/bin/robot -variable BROWSER="${BROWSER}" -d output -i "${ROBOT_TAGS}" tests/
+                ROBOT_CMD="venv/bin/robot --variable BROWSER:${BROWSER} -d output"
+
+                if [ -n "${ROBOT_TAGS}" ]; then
+                    ROBOT_CMD="$ROBOT_CMD --include ${ROBOT_TAGS}"
                 fi
+
+                echo "Executing: $ROBOT_CMD tests/"
+                $ROBOT_CMD tests/
                 '''
             }
         }
