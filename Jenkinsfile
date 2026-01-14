@@ -11,6 +11,7 @@ pipeline {
         stage('Setup Virtual Environment') {
             steps {
                 sh '''
+                rm -rf venv .playwright
                 python3 -m venv venv
                 venv/bin/python -m pip install --upgrade pip
                 '''
