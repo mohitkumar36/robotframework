@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'BROWSER', defaultValue: 'chromium', description: 'Browser to use for tests (chromium, firefox, webkit)')
+        string(name: 'ROBOT_TAGS', defaultValue: '', description: 'Tags to include or exclude tests (e.g., "smoke" or "-wip")')
+    }
+
     stages {
 
         stage('Setup Virtual Environment') {
@@ -25,7 +30,12 @@ pipeline {
             steps {
                 sh '''
                 rm -rf output
-                venv/bin/robot -d output tests/
+                
+                if [ -z "${ROBOT_TAGS}" ]; then
+                    venv/bin/robot -variable BROWSER="${BROWSER}" -d output tests/
+                else
+                    venv/bin/robot -variable BROWSER="${BROWSER}" -d output -i "${ROBOT_TAGS}" tests/
+                fi
                 '''
             }
         }
