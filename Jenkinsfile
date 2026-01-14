@@ -20,9 +20,11 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                export PLAYWRIGHT_BROWSERS_PATH=$WORKSPACE/.playwright
+
                 venv/bin/pip install -r requirements.txt
 
-                if [ ! -d "${HOME}/.cache/ms-playwright" ]; then
+                if [ ! -d "$PLAYWRIGHT_BROWSERS_PATH" ]; then
                     echo "Installing Playwright browsers..."
                     venv/bin/rfbrowser init
                 else
