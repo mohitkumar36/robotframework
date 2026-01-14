@@ -40,6 +40,8 @@ pipeline {
                 sh '''
                 rm -rf output
                 
+                export PLAYWRIGHT_BROWSERS_PATH=$WORKSPACE/.playwright
+
                 ROBOT_CMD="venv/bin/robot --variable BROWSER:${BROWSER} -d output"
 
                 if [ -n "${ROBOT_TAGS}" ]; then
