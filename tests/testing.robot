@@ -25,3 +25,13 @@ Open Browser And Capture Screenshot
     Take Screenshot    google_homepage.png
     Sleep    5s
     Close Browser
+
+Open Browser And Capture Screenshot Again
+    [Documentation]    Open a Chromium browser, navigate to Google, and capture a screenshot.
+    [Tags]    regression    browser
+    New Browser    ${BROWSER}    headless=True    args=["--start-maximized"]
+    New Context    viewport=${None}
+    New Page    https://www.google.com
+    Take Screenshot    google_homepage.png
+    Sleep    10s
+    Close Browser
