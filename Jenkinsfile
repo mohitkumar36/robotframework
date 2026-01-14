@@ -21,7 +21,13 @@ pipeline {
             steps {
                 sh '''
                 venv/bin/pip install -r requirements.txt
-                venv/bin/rfbrowser init
+
+                if [ ! -d "${HOME}/.cache/ms-playwright" ]; then
+                    echo "Installing Playwright browsers..."
+                    venv/bin/rfbrowser init
+                else
+                    echo "Playwright browsers already installed."
+                fi
                 '''
             }
         }
